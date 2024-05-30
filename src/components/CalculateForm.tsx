@@ -3,6 +3,7 @@ import { useForm } from '@mantine/form';
 import { estimateRequireScore } from '../utils/calculateScore';
 import { useState } from 'react';
 import ShowsRankBox from './ShowsRankBox';
+import { IconCalculator, IconMicrophone, IconShoe, IconWorldCog } from '@tabler/icons-react';
 
 interface FormData {
     vo: number
@@ -20,9 +21,9 @@ function CalculateForm() {
 
     const calForm = useForm<FormData>({
         initialValues: {
-            vo: 0,
-            da: 0,
-            vi: 0,
+            vo: 100,
+            da: 100,
+            vi: 100,
             ranking: "1"
         },
         validate: {
@@ -82,7 +83,10 @@ function CalculateForm() {
 
                     <NumberInput
                         mt={8}
-                        label="Vo"
+                        label="Vo (ボーカル)"
+                        description="Vocal value"
+                        leftSection={<IconMicrophone color="#e9347f"/>}
+                        
                         key={calForm.key('vo')}
                         min={1}
                         max={1500}
@@ -91,7 +95,9 @@ function CalculateForm() {
 
                     <NumberInput
                         mt={8}
-                        label="Da"
+                        label="Da (ダンス)"
+                        description="Dance value"
+                        leftSection={<IconShoe color="#1d80e3"/>}
                         key={calForm.key('da')}
                         min={1}
                         max={1500}
@@ -100,15 +106,17 @@ function CalculateForm() {
 
                     <NumberInput
                         mt={8}
-                        label="Vi"
+                        label="Vi (ビジュアル)"
+                        description="Visual value"
+                        leftSection={<IconWorldCog color="#ecaa2c"/>}
                         key={calForm.key('vi')}
                         min={1}
                         max={1500}
                         {...calForm.getInputProps('vi')}
                     />
 
-                    <Group justify="flex-end" mt="md">
-                        <Button type="submit" variant='light'>
+                    <Group justify="flex-end" mt={24}>
+                        <Button fullWidth type="submit" variant='light' leftSection={<IconCalculator size={15}/>}>
                             Calculate
                         </Button>
                     </Group>
