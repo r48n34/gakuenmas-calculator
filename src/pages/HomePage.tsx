@@ -1,6 +1,6 @@
 import { Container, Text, Group } from "@mantine/core";
 import CalculateForm from "../components/CalculateForm";
-import { IconBrandGithubFilled } from '@tabler/icons-react';
+import { IconBrandGithubFilled, IconScoreboard } from '@tabler/icons-react';
 import GoUrlBtn from "../components/GoUrlBtn";
 import ColorToggleBtn from "../components/ColorToggleBtn";
 
@@ -18,7 +18,7 @@ function HomePage(){
 
         <Container>
             <Text ta="center" fw={300} fz={46}>
-                学園アイドルマスター Calculator
+               <IconScoreboard size={32}/> 学園アイドルマスター Calculator
             </Text>
 
             <Text ta="center" mt={-5} fw={300} fz={16} mb={12} c="dimmed">

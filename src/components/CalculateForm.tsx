@@ -1,20 +1,22 @@
 import { Button, Grid, Group, NumberInput, Select, Text } from '@mantine/core';
 import { useForm } from '@mantine/form';
+
 import { estimateRequireScore } from '../utils/calculateScore';
 import { useState } from 'react';
 import ShowsRankBox from './ShowsRankBox';
 import { IconCalculator, IconMicrophone, IconShoe, IconWorldCog } from '@tabler/icons-react';
+import DataBar from './DataBar';
 
 interface FormData {
     vo: number
     da: number
     vi: number
-    ranking: string
+    ranking: "1" | "2" | "3" | "4" | "5" | "6"
 }
 
 function CalculateForm() {
 
-    const [ threeSum, setThreeSum ] = useState<number>(-1);
+    const [threeSum, setThreeSum] = useState<number>(-1);
 
     const [scoreToS, setScoreToS] = useState<number>(-1);
     const [scoreToAPlus, setScoreToAPlus] = useState<number>(-1);
@@ -32,7 +34,7 @@ function CalculateForm() {
             vo: (value) => (value >= 1 && value <= 1500 ? null : 'Invalid vo'),
             da: (value) => (value >= 1 && value <= 1500 ? null : 'Invalid da'),
             vi: (value) => (value >= 1 && value <= 1500 ? null : 'Invalid vi'),
-            ranking: (value) => (!!value? null : 'Invalid ranking number'),
+            ranking: (value) => (!!value ? null : 'Invalid ranking number'),
         },
     });
 
@@ -49,29 +51,37 @@ function CalculateForm() {
         <>
             {scoreToAPlus !== -1 && (
                 <>
-                
-                <Grid grow>
-                    <Grid.Col span={{ base: 12, md: 6, lg: 3 }}>
-                        <ShowsRankBox title={"B+"} score={scoreToBPlus} textColor={"gray"}/>
-                    </Grid.Col>
+                    <Grid grow>
+                        <Grid.Col span={{ base: 12, sm: 6,  md: 6, lg: 2 }}>
+                            <ShowsRankBox title={"B+"} score={scoreToBPlus} textColor={"gray"} />
+                        </Grid.Col>
 
-                    <Grid.Col span={{ base: 12, md: 6, lg: 3 }}>
-                        <ShowsRankBox title={"A"} score={scoreToA} textColor={"pink"}/>
-                    </Grid.Col>
+                        <Grid.Col span={{ base: 6, sm: 6, md: 6, lg: 2 }}>
+                            <ShowsRankBox title={"A"} score={scoreToA} textColor={"pink"} />
+                        </Grid.Col>
 
-                    <Grid.Col span={{ base: 12, md: 6, lg: 3 }}>
-                        <ShowsRankBox title={"A+"} score={scoreToAPlus} textColor={"pink"}/>
-                    </Grid.Col>
+                        <Grid.Col span={{ base: 6, sm: 6, md: 6, lg: 2 }}>
+                            <ShowsRankBox title={"A+"} score={scoreToAPlus} textColor={"pink"} />
+                        </Grid.Col>
 
-                    <Grid.Col span={{ base: 12, md: 6, lg: 3 }}>
-                        <ShowsRankBox title={"S"} score={scoreToS} textColor={"gold"}/>
-                    </Grid.Col>
-                </Grid>
+                        <Grid.Col span={{ base: 6, sm: 6, md: 6, lg: 2 }}>
+                            <ShowsRankBox title={"S"} score={scoreToS} textColor={"gold"} />
+                        </Grid.Col>
 
-                <Text ta="left" c="dimmed" mt={2}> 
-                    Total Sum: { threeSum } {calForm.values.ranking === "1" ? ` + 90 = ${ threeSum + 90 } (90 is added to final calculations for 1st)` : ""}
-                </Text>
+                        <Grid.Col span={{ base: 12, sm: 6, md: 6, lg: 2 }}>
+                            <DataBar vo={calForm.values.vo} da={calForm.values.da} vi={calForm.values.vi}/>
+                        </Grid.Col>
+                    </Grid>
 
+                    <Text ta="left" c="dimmed" mt={6} fw={300} fz={14}>
+                        Total Sum: {threeSum} {calForm.values.ranking === "1" ? ` + 90 = ${threeSum + 90}` : ""}
+                    </Text>
+
+                    {calForm.values.ranking === "1" && (
+                        <Text ta="left" c="dimmed" mt={2} fw={300} fz={14}>
+                            (90 is added to final calculations for 1st)
+                        </Text>
+                    )}
                 </>
             )}
 
@@ -97,8 +107,8 @@ function CalculateForm() {
                         mt={8}
                         label="Vo (ボーカル)"
                         description="Vocal value"
-                        leftSection={<IconMicrophone color="#e9347f"/>}
-                        
+                        leftSection={<IconMicrophone color="#e9347f" />}
+
                         key={calForm.key('vo')}
                         min={1}
                         max={1500}
@@ -109,7 +119,7 @@ function CalculateForm() {
                         mt={8}
                         label="Da (ダンス)"
                         description="Dance value"
-                        leftSection={<IconShoe color="#1d80e3"/>}
+                        leftSection={<IconShoe color="#1d80e3" />}
                         key={calForm.key('da')}
                         min={1}
                         max={1500}
@@ -120,7 +130,7 @@ function CalculateForm() {
                         mt={8}
                         label="Vi (ビジュアル)"
                         description="Visual value"
-                        leftSection={<IconWorldCog color="#ecaa2c"/>}
+                        leftSection={<IconWorldCog color="#ecaa2c" />}
                         key={calForm.key('vi')}
                         min={1}
                         max={1500}
@@ -128,7 +138,7 @@ function CalculateForm() {
                     />
 
                     <Group justify="flex-end" mt={24}>
-                        <Button fullWidth type="submit" variant='light' leftSection={<IconCalculator size={15}/>}>
+                        <Button fullWidth type="submit" variant='light' leftSection={<IconCalculator size={15} />}>
                             Calculate
                         </Button>
                     </Group>

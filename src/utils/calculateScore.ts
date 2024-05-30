@@ -1,7 +1,8 @@
-import { finalScoreMin } from "./staticData"
+import { FinalScoreKey, finalScoreMin } from "./staticData"
 
-export function estimateRequireScore(vo: number, da: number, vi: number, requireRank: string, ranking: number){
-    const scoreRequire = finalScoreMin[requireRank] || finalScoreMin["A+"];
+// Algo in 30/05/2024, may change in the future
+export function estimateRequireScore(vo: number, da: number, vi: number, requireRank: string, ranking: number): number{
+    const scoreRequire = finalScoreMin[requireRank as FinalScoreKey] || finalScoreMin["A+"];
 
     const resultPt = scoreRequire - rankingScore(ranking) - calculateThreeSum(vo, da, vi, ranking === 1);
 
@@ -16,11 +17,11 @@ export function estimateRequireScore(vo: number, da: number, vi: number, require
     return 0
 }
 
-function calculateThreeSum(vo: number, da: number, vi: number, isRankOne: boolean){
+function calculateThreeSum(vo: number, da: number, vi: number, isRankOne: boolean): number{
     return Math.floor( 2.3 * (vo + da + vi + (isRankOne ? 90 : 0)) )
 }
 
-function rankingScore(rank: number){
+function rankingScore(rank: number): number {
 
     const rankPt: Record<number, number> = {
         1: 1700,
@@ -36,7 +37,7 @@ function rankingScore(rank: number){
 }
 
 // https://ngabbs.com/read.php?tid=40230899
-function finalScoreCal(score: number){
+function finalScoreCal(score: number): number{
 
     const finalPt = score <= 5000 // (0 <  x ≤ 5000)
         ? 0.3 * score
