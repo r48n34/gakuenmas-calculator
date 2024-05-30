@@ -1,10 +1,23 @@
-import { Container, Text } from "@mantine/core";
+import { Container, Text, Group } from "@mantine/core";
 import CalculateForm from "../components/CalculateForm";
+import { IconBrandGithubFilled } from '@tabler/icons-react';
+import GoUrlBtn from "../components/GoUrlBtn";
+import ColorToggleBtn from "../components/ColorToggleBtn";
 
 function HomePage(){
     return (
+        <>
+        <Group justify="flex-end" mr={16}>
+            <ColorToggleBtn />
+            <GoUrlBtn
+                title="Github"
+                url={"https://github.com/r48n34/gakuenmas-calculator"}
+                icon={<IconBrandGithubFilled size={14} />}
+            />   
+        </Group>
+
         <Container>
-            <Text ta="center" mt={12} fw={300} fz={52}>
+            <Text ta="center" fw={300} fz={52}>
                 I@MA Calculator
             </Text>
 
@@ -18,6 +31,7 @@ function HomePage(){
        
             <CalculateForm />
         </Container>
+        </>
     )
 }
     
