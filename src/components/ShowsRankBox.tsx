@@ -3,12 +3,13 @@ import { Text, Card } from '@mantine/core';
 type ShowsRankBoxProps = {
     title: string
     score: number
+    textColor?: string
 }
 
-function ShowsRankBox({ title, score }: ShowsRankBoxProps){
+function ShowsRankBox({ title, score, textColor = "gold" }: ShowsRankBoxProps){
     return (
         <Card shadow="sm" padding="lg" radius="md" withBorder>
-        <Text ta="center" fz={24}>
+        <Text ta="center" fz={32} c={textColor}>
             { title }
         </Text>
         <Text ta="center" fz={32} fw={600}>

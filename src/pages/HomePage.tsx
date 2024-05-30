@@ -17,12 +17,12 @@ function HomePage(){
         </Group>
 
         <Container>
-            <Text ta="center" fw={300} fz={52}>
-                I@MA Calculator
+            <Text ta="center" fw={300} fz={46}>
+                学園アイドルマスター Calculator
             </Text>
 
             <Text ta="center" mt={-5} fw={300} fz={16} mb={12} c="dimmed">
-                Calculator the extimated final Rank
+                Calculator the estimated final exam score
             </Text>
 
             <Text ta="center" mt={-5} fw={300} fz={16} mb={12} c="dimmed">

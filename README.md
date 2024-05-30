@@ -6,7 +6,8 @@ Base of final stats, to calculate the score to obtain desire rank.
 URL: https://gakuenmas-calculator.vercel.app/  
 
 ## References
-https://ngabbs.com/read.php?tid=40232820
+https://ngabbs.com/read.php?tid=40232820  
+https://ngabbs.com/read.php?tid=40230899  
 
 ## License
 Distributed under the `MIT License`.

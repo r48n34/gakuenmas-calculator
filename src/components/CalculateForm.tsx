@@ -45,20 +45,20 @@ function CalculateForm() {
         <>
             {scoreToAPlus !== -1 && (
                 <Grid grow>
-                    <Grid.Col span={{ base: 12, md: 6, lg: 4 }}>
-                        <ShowsRankBox title={"B+"} score={scoreToBPlus} />
+                    <Grid.Col span={{ base: 12, md: 6, lg: 3 }}>
+                        <ShowsRankBox title={"B+"} score={scoreToBPlus} textColor={"gray"}/>
                     </Grid.Col>
 
-                    <Grid.Col span={{ base: 12, md: 6, lg: 4 }}>
-                        <ShowsRankBox title={"A"} score={scoreToA} />
+                    <Grid.Col span={{ base: 12, md: 6, lg: 3 }}>
+                        <ShowsRankBox title={"A"} score={scoreToA} textColor={"pink"}/>
                     </Grid.Col>
 
-                    <Grid.Col span={{ base: 12, md: 6, lg: 4 }}>
-                        <ShowsRankBox title={"A+"} score={scoreToAPlus} />
+                    <Grid.Col span={{ base: 12, md: 6, lg: 3 }}>
+                        <ShowsRankBox title={"A+"} score={scoreToAPlus} textColor={"pink"}/>
                     </Grid.Col>
 
-                    <Grid.Col span={{ base: 12, md: 6, lg: 4 }}>
-                        <ShowsRankBox title={"S"} score={scoreToS} />
+                    <Grid.Col span={{ base: 12, md: 6, lg: 3 }}>
+                        <ShowsRankBox title={"S"} score={scoreToS} textColor={"gold"}/>
                     </Grid.Col>
                 </Grid>
             )}
