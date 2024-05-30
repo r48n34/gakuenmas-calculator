@@ -1,4 +1,4 @@
-import { Button, Grid, Group, NumberInput, Select } from '@mantine/core';
+import { Button, Grid, Group, NumberInput, Select, Text } from '@mantine/core';
 import { useForm } from '@mantine/form';
 import { estimateRequireScore } from '../utils/calculateScore';
 import { useState } from 'react';
@@ -71,9 +71,9 @@ function CalculateForm() {
                         description="No need to modify in general cases"
                         key={calForm.key('ranking')}
                         data={[
-                            { value: '1', label: '1st' },
-                            { value: '2', label: '2nd' },
-                            { value: '3', label: '3rd' },
+                            { value: '1', label: '1st 🥇' },
+                            { value: '2', label: '2nd 🥈' },
+                            { value: '3', label: '3rd 🥉' },
                             { value: '4', label: '4th' },
                             { value: '5', label: '5th' },
                             { value: '6', label: '6th' },
@@ -120,6 +120,10 @@ function CalculateForm() {
                             Calculate
                         </Button>
                     </Group>
+
+                    <Text ta="center" mt={4} fw={300} fz={12} mb={12} c="dimmed">
+                        Last update algo: 30/05/2024
+                    </Text>
                 </form>
 
             </Group>

@@ -22,11 +22,11 @@ function HomePage(){
             </Text>
 
             <Text ta="center" mt={-5} fw={300} fz={16} mb={12} c="dimmed">
-                Calculator the estimated final exam score
+                Calculator the estimated final exam score (Before exam)
             </Text>
 
             <Text ta="center" mt={-5} fw={300} fz={16} mb={12} c="dimmed">
-                The following score are a estimated score, and may not reflected to actual values.
+                The following score are a estimated score, and may not reflected to actual values. 
             </Text>
        
             <CalculateForm />
