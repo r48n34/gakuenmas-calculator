@@ -14,6 +14,8 @@ interface FormData {
 
 function CalculateForm() {
 
+    const [ threeSum, setThreeSum ] = useState<number>(-1);
+
     const [scoreToS, setScoreToS] = useState<number>(-1);
     const [scoreToAPlus, setScoreToAPlus] = useState<number>(-1);
     const [scoreToA, setScoreToA] = useState<number>(-1);
@@ -39,11 +41,15 @@ function CalculateForm() {
         setScoreToAPlus(estimateRequireScore(values.vo, values.da, values.vi, "A+", +values.ranking))
         setScoreToS(estimateRequireScore(values.vo, values.da, values.vi, "S", +values.ranking))
         setScoreToBPlus(estimateRequireScore(values.vo, values.da, values.vi, "B+", +values.ranking))
+
+        setThreeSum(values.vo + values.da + values.vi)
     }
 
     return (
         <>
             {scoreToAPlus !== -1 && (
+                <>
+                
                 <Grid grow>
                     <Grid.Col span={{ base: 12, md: 6, lg: 3 }}>
                         <ShowsRankBox title={"B+"} score={scoreToBPlus} textColor={"gray"}/>
@@ -61,6 +67,12 @@ function CalculateForm() {
                         <ShowsRankBox title={"S"} score={scoreToS} textColor={"gold"}/>
                     </Grid.Col>
                 </Grid>
+
+                <Text ta="left" c="dimmed" mt={2}> 
+                    Total Sum: { threeSum } {calForm.values.ranking === "1" ? ` + 90 = ${ threeSum + 90 } (90 is added to final calculations for 1st)` : ""}
+                </Text>
+
+                </>
             )}
 
             <Group justify="center" mt={18}>
