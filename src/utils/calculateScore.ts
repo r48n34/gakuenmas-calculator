@@ -18,7 +18,14 @@ export function estimateRequireScore(vo: number, da: number, vi: number, require
 }
 
 function calculateThreeSum(vo: number, da: number, vi: number, isRankOne: boolean): number{
-    return Math.floor( 2.3 * (vo + da + vi + (isRankOne ? 90 : 0)) )
+    const CURRENT_MAX = 1500
+
+    if(isRankOne){
+        return Math.floor( 2.3 * ( Math.min(CURRENT_MAX, vo + 30) + Math.min(CURRENT_MAX, da + 30) + Math.min(CURRENT_MAX, vi + 30)) )
+    }
+    else {
+        return Math.floor( 2.3 * (vo + da + vi) )
+    }
 }
 
 function rankingScore(rank: number): number {

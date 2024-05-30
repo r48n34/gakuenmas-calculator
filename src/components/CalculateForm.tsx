@@ -44,7 +44,8 @@ function CalculateForm() {
         setScoreToS(estimateRequireScore(values.vo, values.da, values.vi, "S", +values.ranking))
         setScoreToBPlus(estimateRequireScore(values.vo, values.da, values.vi, "B+", +values.ranking))
 
-        setThreeSum(values.vo + values.da + values.vi)
+        const CURRENT_MAX = 1500;
+        setThreeSum(Math.min(CURRENT_MAX, values.vo + 30) + Math.min(CURRENT_MAX, values.da + 30) + Math.min(CURRENT_MAX, values.vi + 30))
     }
 
     return (
@@ -74,12 +75,12 @@ function CalculateForm() {
                     </Grid>
 
                     <Text ta="left" c="dimmed" mt={6} fw={300} fz={14}>
-                        Total Sum: {threeSum} {calForm.values.ranking === "1" ? ` + 90 = ${threeSum + 90}` : ""}
+                        Total Sum: {threeSum} {calForm.values.ranking === "1" ? ` added 1st Bonus` : ""}
                     </Text>
 
                     {calForm.values.ranking === "1" && (
                         <Text ta="left" c="dimmed" mt={2} fw={300} fz={14}>
-                            (90 is added to final calculations for 1st)
+                            (90 bonus is added to final calculations for 1st) (Stats that larger than 1500 will not be adding 30)
                         </Text>
                     )}
                 </>
