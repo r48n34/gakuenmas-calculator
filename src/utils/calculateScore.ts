@@ -6,7 +6,7 @@ export function estimateRequireScore(vo: number, da: number, vi: number, require
 
     const resultPt = scoreRequire - rankingScore(ranking) - calculateThreeSum(vo, da, vi, ranking === 1);
 
-    for(let sc = 0; sc < 1650000; sc ++){
+    for(let sc = 0; sc < 165000; sc ++){
         const resultAduScore = finalScoreCal(sc);
 
         if(resultAduScore >= resultPt){
@@ -17,11 +17,15 @@ export function estimateRequireScore(vo: number, da: number, vi: number, require
     return 0
 }
 
-function calculateThreeSum(vo: number, da: number, vi: number, isRankOne: boolean): number{
-    const CURRENT_MAX = 1500
+function calculateThreeSum(vo: number, da: number, vi: number, isRankOne: boolean, CURRENT_MAX: number = 1500): number {
 
     if(isRankOne){
-        return Math.floor( 2.3 * ( Math.min(CURRENT_MAX, vo + 30) + Math.min(CURRENT_MAX, da + 30) + Math.min(CURRENT_MAX, vi + 30)) )
+        return Math.floor( 2.3 * ( 
+            Math.min(CURRENT_MAX, vo + 30)
+            + Math.min(CURRENT_MAX, da + 30)
+            + Math.min(CURRENT_MAX, vi + 30)
+            )
+        )
     }
     else {
         return Math.floor( 2.3 * (vo + da + vi) )

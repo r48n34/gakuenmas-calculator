@@ -1,6 +1,5 @@
 import { DonutChart } from '@mantine/charts';
-
-import { Card, Group } from '@mantine/core';
+import { Card, Group, Text } from '@mantine/core';
 
 type DataBarProps = {
     vo: number
@@ -11,10 +10,14 @@ type DataBarProps = {
 function DataBar({ vo, da, vi }: DataBarProps) {
     return (
         <Card shadow="sm" padding="lg" radius="md" withBorder>
+            <Text ta="center" c="dimmed" fw={300} fz={16}>
+                Final status
+            </Text>
             <Group justify='center'>
             <DonutChart
                 w={300}
-                withLabelsLine withLabels strokeWidth={5}
+                withLabelsLine withLabels
+                paddingAngle={10}
                 data={[
                     { name: 'vo', value: vo, color: '#e9347f' },
                     { name: 'da', value: da, color: '#1d80e3' },

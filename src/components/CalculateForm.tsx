@@ -1,11 +1,15 @@
 import { Button, Grid, Group, NumberInput, Select, Text } from '@mantine/core';
 import { useForm } from '@mantine/form';
+import { useScrollIntoView } from '@mantine/hooks';
+
 
 import { estimateRequireScore } from '../utils/calculateScore';
 import { useState } from 'react';
 import ShowsRankBox from './ShowsRankBox';
-import { IconCalculator, IconMicrophone, IconShoe, IconWorldCog } from '@tabler/icons-react';
+import { IconCalculator, IconMicrophone, IconShoe, IconWorldCog, IconZoomReset } from '@tabler/icons-react';
 import DataBar from './DataBar';
+
+const CURRENT_MAX = 1500;
 
 interface FormData {
     vo: number
@@ -16,7 +20,12 @@ interface FormData {
 
 function CalculateForm() {
 
-    const [threeSum, setThreeSum] = useState<number>(-1);
+    const { scrollIntoView, targetRef } = useScrollIntoView<HTMLDivElement>({
+        offset: 60,
+        duration: 400
+    });
+
+    const [currentThreeData, setCurrentThreeData] = useState<[number, number, number]>([-1, -1, -1]);
 
     const [scoreToS, setScoreToS] = useState<number>(-1);
     const [scoreToAPlus, setScoreToAPlus] = useState<number>(-1);
@@ -25,9 +34,9 @@ function CalculateForm() {
 
     const calForm = useForm<FormData>({
         initialValues: {
-            vo: 100,
-            da: 100,
-            vi: 100,
+            vo: 1000,
+            da: 1000,
+            vi: 1000,
             ranking: "1"
         },
         validate: {
@@ -44,16 +53,27 @@ function CalculateForm() {
         setScoreToS(estimateRequireScore(values.vo, values.da, values.vi, "S", +values.ranking))
         setScoreToBPlus(estimateRequireScore(values.vo, values.da, values.vi, "B+", +values.ranking))
 
-        const CURRENT_MAX = 1500;
-        setThreeSum(Math.min(CURRENT_MAX, values.vo + 30) + Math.min(CURRENT_MAX, values.da + 30) + Math.min(CURRENT_MAX, values.vi + 30))
+        setCurrentThreeData([
+            Math.min(CURRENT_MAX, values.vo + 30),
+            Math.min(CURRENT_MAX, values.da + 30),
+            Math.min(CURRENT_MAX, values.vi + 30),
+        ])
+
+        scrollIntoView({
+            alignment: 'center',
+        })
+    }
+
+    function addValueToForm(field: "vo" | "da" | "vi", addedVal: number) {
+        calForm.setFieldValue(field, Math.min(CURRENT_MAX, calForm.getValues()[field] + addedVal))
     }
 
     return (
         <>
             {scoreToAPlus !== -1 && (
                 <>
-                    <Grid grow>
-                        <Grid.Col span={{ base: 12, sm: 6,  md: 6, lg: 2 }}>
+                    <Grid grow ref={targetRef}>
+                        <Grid.Col span={{ base: 12, sm: 6, md: 6, lg: 2 }}>
                             <ShowsRankBox title={"B+"} score={scoreToBPlus} textColor={"gray"} />
                         </Grid.Col>
 
@@ -70,12 +90,12 @@ function CalculateForm() {
                         </Grid.Col>
 
                         <Grid.Col span={{ base: 12, sm: 6, md: 6, lg: 2 }}>
-                            <DataBar vo={calForm.values.vo} da={calForm.values.da} vi={calForm.values.vi}/>
+                            <DataBar vo={currentThreeData[0]} da={currentThreeData[1]} vi={currentThreeData[2]} />
                         </Grid.Col>
                     </Grid>
 
                     <Text ta="left" c="dimmed" mt={6} fw={300} fz={14}>
-                        Total Sum: {threeSum} {calForm.values.ranking === "1" ? ` added 1st Bonus` : ""}
+                        Total Sum: {currentThreeData.reduce((a, b) => a + b, 0)} {calForm.values.ranking === "1" ? ` added 1st Bonus` : ""}
                     </Text>
 
                     {calForm.values.ranking === "1" && (
@@ -104,43 +124,75 @@ function CalculateForm() {
                         {...calForm.getInputProps('ranking')}
                     />
 
-                    <NumberInput
-                        mt={8}
-                        label="Vo (ボーカル)"
-                        description="Vocal value"
-                        leftSection={<IconMicrophone color="#e9347f" />}
+                    <Group mt="md" justify="center">
 
-                        key={calForm.key('vo')}
-                        min={1}
-                        max={1500}
-                        {...calForm.getInputProps('vo')}
-                    />
+                        <NumberInput
+                            mt={8}
+                            label="Vo (ボーカル)"
+                            description="Vocal value"
+                            leftSection={<IconMicrophone color="#e9347f" />}
+                            allowNegative={false}
+                            allowDecimal={false}
+                            key={calForm.key('vo')}
+                            min={1}
+                            max={1500}
+                            stepHoldDelay={500}
+                            stepHoldInterval={(t) => Math.max(1000 / t ** 2, 25)}
+                            {...calForm.getInputProps('vo')}
+                        />
 
-                    <NumberInput
-                        mt={8}
-                        label="Da (ダンス)"
-                        description="Dance value"
-                        leftSection={<IconShoe color="#1d80e3" />}
-                        key={calForm.key('da')}
-                        min={1}
-                        max={1500}
-                        {...calForm.getInputProps('da')}
-                    />
+                        <Button onClick={() => addValueToForm("vo", 100)} variant="default" mt={52}>
+                            +100
+                        </Button>
 
-                    <NumberInput
-                        mt={8}
-                        label="Vi (ビジュアル)"
-                        description="Visual value"
-                        leftSection={<IconWorldCog color="#ecaa2c" />}
-                        key={calForm.key('vi')}
-                        min={1}
-                        max={1500}
-                        {...calForm.getInputProps('vi')}
-                    />
+                    </Group>
 
-                    <Group justify="flex-end" mt={24}>
-                        <Button fullWidth type="submit" variant='light' leftSection={<IconCalculator size={15} />}>
-                            Calculate
+                    <Group mt="md" justify="center">
+                        <NumberInput
+                            mt={8}
+                            label="Da (ダンス)"
+                            description="Dance value"
+                            leftSection={<IconShoe color="#1d80e3" />}
+                            allowNegative={false}
+                            allowDecimal={false}
+                            key={calForm.key('da')}
+                            min={1}
+                            max={1500}
+                            stepHoldDelay={500}
+                            stepHoldInterval={(t) => Math.max(1000 / t ** 2, 25)}
+                            {...calForm.getInputProps('da')}
+                        />
+                        <Button onClick={() => addValueToForm('da', 100)} variant="default" mt={52}>
+                            +100
+                        </Button>
+                    </Group>
+
+                    <Group mt="md" justify="center">
+                        <NumberInput
+                            mt={8}
+                            label="Vi (ビジュアル)"
+                            description="Visual value"
+                            leftSection={<IconWorldCog color="#ecaa2c" />}
+                            allowNegative={false}
+                            allowDecimal={false}
+                            key={calForm.key('vi')}
+                            min={1}
+                            max={1500}
+                            stepHoldDelay={500}
+                            stepHoldInterval={(t) => Math.max(1000 / t ** 2, 25)}
+                            {...calForm.getInputProps('vi')}
+                        />
+                        <Button onClick={() => addValueToForm('vi', 100)} variant="default" mt={52}>
+                            +100
+                        </Button>
+                    </Group>
+
+                    <Group justify="center" mt={24}>
+                        <Button variant='light' leftSection={<IconZoomReset size={15} />} onClick={calForm.reset} color="green">
+                            Reset
+                        </Button>
+                        <Button type="submit" variant='light' leftSection={<IconCalculator size={15} />}>
+                            Calculate score
                         </Button>
                     </Group>
 
