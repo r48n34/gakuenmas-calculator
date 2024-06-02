@@ -23,6 +23,7 @@ function DataBar({ vo, da, vi }: DataBarProps) {
                     { name: 'da', value: da, color: '#1d80e3' },
                     { name: 'vi', value: vi, color: '#ecaa2c' },
                 ]}
+                chartLabel={vo + da + vi}
             />
             </Group>
         </Card>

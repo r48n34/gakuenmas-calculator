@@ -3,11 +3,13 @@ import CalculateForm from "../components/CalculateForm";
 import { IconBrandGithubFilled, IconScoreboard } from '@tabler/icons-react';
 import GoUrlBtn from "../components/GoUrlBtn";
 import ColorToggleBtn from "../components/ColorToggleBtn";
+import AnalysisScore from "../components/AnalysisScore";
 
 function HomePage(){
     return (
         <>
         <Group justify="flex-end" mr={16}>
+            <AnalysisScore />
             <ColorToggleBtn />
             <GoUrlBtn
                 title="Github"

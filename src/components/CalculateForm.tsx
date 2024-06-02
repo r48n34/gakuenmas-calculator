@@ -1,8 +1,6 @@
 import { Button, Grid, Group, NumberInput, Select, Text } from '@mantine/core';
 import { useForm } from '@mantine/form';
 import { useScrollIntoView } from '@mantine/hooks';
-
-
 import { estimateRequireScore } from '../utils/calculateScore';
 import { useState } from 'react';
 import ShowsRankBox from './ShowsRankBox';
@@ -70,6 +68,8 @@ function CalculateForm() {
 
     return (
         <>
+            {/* <ScoreThreeSizeAreaChar />   */}
+            
             {scoreToAPlus !== -1 && (
                 <>
                     <Grid grow ref={targetRef}>
