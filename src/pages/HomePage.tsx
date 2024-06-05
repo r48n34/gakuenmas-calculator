@@ -4,12 +4,14 @@ import { IconBrandGithubFilled, IconScoreboard } from '@tabler/icons-react';
 import GoUrlBtn from "../components/GoUrlBtn";
 import ColorToggleBtn from "../components/ColorToggleBtn";
 import AnalysisScore from "../components/AnalysisScore";
+import CalInvScoreModal from "../components/CalInvScoreModal";
 
 function HomePage(){
     return (
         <>
         <Group justify="flex-end" mr={16}>
             <AnalysisScore />
+            <CalInvScoreModal/>
             <ColorToggleBtn />
             <GoUrlBtn
                 title="Github"

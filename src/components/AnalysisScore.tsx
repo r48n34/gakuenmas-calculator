@@ -17,7 +17,7 @@ function AnalysisScore() {
                 variant="light"
                 onClick={open}
             >
-                <IconChartArcs/>
+                <IconChartArcs size={18}/>
             </ActionIcon>
         </Tooltip>
         </>

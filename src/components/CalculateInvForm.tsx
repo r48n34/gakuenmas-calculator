@@ -1,13 +1,10 @@
-import { Button, Grid, Group, NumberInput, Select, Text } from '@mantine/core';
+import { Button, Group, NumberInput, Text } from '@mantine/core';
 import { useForm } from '@mantine/form';
-import { useScrollIntoView } from '@mantine/hooks';
-import { estimateRequireScore } from '../utils/calculateScore';
+import { estimateInverseScore } from '../utils/calculateScore';
 import { useState } from 'react';
-import ShowsRankBox from './ShowsRankBox';
-import { IconCalculator, IconMicrophone, IconShoe, IconWorldCog, IconZoomReset } from '@tabler/icons-react';
-import DataBar from './DataBar';
+import { IconCalculator, IconMicrophone, IconScoreboard, IconShoe, IconWorldCog, IconZoomReset } from '@tabler/icons-react';
 
-interface CalculateFormProps {
+interface CalculateInvFormProps {
     CURRENT_MAX?: number
 }
 
@@ -15,94 +12,52 @@ interface FormData {
     vo: number
     da: number
     vi: number
-    ranking: "1" | "2" | "3" | "4" | "5" | "6"
+    pt: number
 }
 
-function CalculateForm({ CURRENT_MAX = 1500 }: CalculateFormProps) {
+function CalculateInvForm({ CURRENT_MAX = 1500 }: CalculateInvFormProps) {
 
-    const { scrollIntoView, targetRef } = useScrollIntoView<HTMLDivElement>({
-        offset: 60,
-        duration: 400
-    });
-
-    const [currentThreeData, setCurrentThreeData] = useState<[number, number, number]>([-1, -1, -1]);
-
-    const [scoreToS, setScoreToS] = useState<number>(-1);
-    const [scoreToAPlus, setScoreToAPlus] = useState<number>(-1);
-    const [scoreToA, setScoreToA] = useState<number>(-1);
-    const [scoreToBPlus, setScoreToBPlus] = useState<number>(-1);
+    const [finalScore, setFinalScore] = useState<number>(-1);
 
     const calForm = useForm<FormData>({
         initialValues: {
             vo: 1000,
             da: 1000,
             vi: 1000,
-            ranking: "1"
+            pt: 10000
         },
         validate: {
             vo: (value) => (value >= 1 && value <= 1500 ? null : 'Invalid vo'),
             da: (value) => (value >= 1 && value <= 1500 ? null : 'Invalid da'),
             vi: (value) => (value >= 1 && value <= 1500 ? null : 'Invalid vi'),
-            ranking: (value) => (!!value ? null : 'Invalid ranking number'),
+            pt: (value) => (value >= 1 ? null : 'Invalid ranking number'),
         },
     });
 
     function calFinalRequireScore(values: FormData) {
-        setScoreToA(estimateRequireScore(values.vo, values.da, values.vi, "A", +values.ranking))
-        setScoreToAPlus(estimateRequireScore(values.vo, values.da, values.vi, "A+", +values.ranking))
-        setScoreToS(estimateRequireScore(values.vo, values.da, values.vi, "S", +values.ranking))
-        setScoreToBPlus(estimateRequireScore(values.vo, values.da, values.vi, "B+", +values.ranking))
-
-        setCurrentThreeData([
-            Math.min(CURRENT_MAX, values.vo + 30),
-            Math.min(CURRENT_MAX, values.da + 30),
-            Math.min(CURRENT_MAX, values.vi + 30),
-        ])
-
-        scrollIntoView({
-            alignment: 'center',
-        })
+        setFinalScore(
+            estimateInverseScore(values.vo, values.da, values.vi, 1, values.pt)
+        )
     }
 
-    function addValueToForm(field: "vo" | "da" | "vi", addedVal: number) {
-        calForm.setFieldValue(field, Math.min(CURRENT_MAX, calForm.getValues()[field] + addedVal))
+    function addValueToForm(field: "vo" | "da" | "vi" | "pt", addedVal: number) {
+        calForm.setFieldValue(
+            field,
+            Math.min(CURRENT_MAX, calForm.getValues()[field] + addedVal)
+        )
     }
 
     return (
         <>
-            {/* <ScoreThreeSizeAreaChar />   */}
-            
-            {scoreToAPlus !== -1 && (
+            {finalScore !== -1 && (
                 <>
-                    <Grid grow ref={targetRef}>
-                        <Grid.Col span={{ base: 12, sm: 6, md: 6, lg: 2 }}>
-                            <ShowsRankBox title={"B+"} score={scoreToBPlus} textColor={"gray"} />
-                        </Grid.Col>
-
-                        <Grid.Col span={{ base: 6, sm: 6, md: 6, lg: 2 }}>
-                            <ShowsRankBox title={"A"} score={scoreToA} textColor={"pink"} />
-                        </Grid.Col>
-
-                        <Grid.Col span={{ base: 6, sm: 6, md: 6, lg: 2 }}>
-                            <ShowsRankBox title={"A+"} score={scoreToAPlus} textColor={"pink"} />
-                        </Grid.Col>
-
-                        <Grid.Col span={{ base: 6, sm: 6, md: 6, lg: 2 }}>
-                            <ShowsRankBox title={"S"} score={scoreToS} textColor={"gold"} />
-                        </Grid.Col>
-
-                        <Grid.Col span={{ base: 12, sm: 6, md: 6, lg: 2 }}>
-                            <DataBar vo={currentThreeData[0]} da={currentThreeData[1]} vi={currentThreeData[2]} />
-                        </Grid.Col>
-                    </Grid>
-
-                    <Text ta="left" c="dimmed" mt={6} fw={300} fz={14}>
-                        Total Sum: {currentThreeData.reduce((a, b) => a + b, 0)} {calForm.values.ranking === "1" ? ` added 1st Bonus` : ""}
+                    <Text ta="center" mt={6} fw={300} fz={48}>
+                        Exam pt: {finalScore}
                     </Text>
 
-                    {calForm.values.ranking === "1" && (
-                        <Text ta="left" c="dimmed" mt={2} fw={300} fz={14}>
-                            (90 bonus is added to final calculations for 1st) (Stats that larger than 1500 will not be adding 30)
+                    {finalScore === 0 && (
+                        <Text ta="center" c="dimmed" fw={300} fz={18}>
+                            Invalid pt or data
                         </Text>
                     )}
                 </>
@@ -111,20 +66,22 @@ function CalculateForm({ CURRENT_MAX = 1500 }: CalculateFormProps) {
             <Group justify="center" mt={18}>
                 <form onSubmit={calForm.onSubmit((values) => calFinalRequireScore(values))}>
 
-                    <Select
-                        label="Final ranking"
-                        description="No need to modify in general cases"
-                        key={calForm.key('ranking')}
-                        data={[
-                            { value: '1', label: '1st 🥇' },
-                            { value: '2', label: '2nd 🥈' },
-                            { value: '3', label: '3rd 🥉' },
-                            { value: '4', label: '4th' },
-                            { value: '5', label: '5th' },
-                            { value: '6', label: '6th' },
-                        ]}
-                        {...calForm.getInputProps('ranking')}
-                    />
+                    <Group mt="md" justify="left">
+                        <NumberInput
+                            mt={8}
+                            label="Final pt"
+                            description="Point at final result"
+                            leftSection={<IconScoreboard />}
+                            allowNegative={false}
+                            allowDecimal={false}
+                            key={calForm.key('pt')}
+                            min={1}
+                            max={999999}
+                            stepHoldDelay={500}
+                            stepHoldInterval={(t) => Math.max(1000 / t ** 2, 25)}
+                            {...calForm.getInputProps('pt')}
+                        />
+                    </Group>
 
                     <Group mt="md" justify="center">
 
@@ -189,6 +146,8 @@ function CalculateForm({ CURRENT_MAX = 1500 }: CalculateFormProps) {
                         </Button>
                     </Group>
 
+
+
                     <Group justify="center" mt={24}>
                         <Button variant='light' leftSection={<IconZoomReset size={15} />} onClick={calForm.reset} color="green">
                             Reset
@@ -208,4 +167,4 @@ function CalculateForm({ CURRENT_MAX = 1500 }: CalculateFormProps) {
     )
 }
 
-export default CalculateForm
+export default CalculateInvForm
