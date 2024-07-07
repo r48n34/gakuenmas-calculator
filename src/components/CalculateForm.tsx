@@ -2,7 +2,7 @@ import { Button, Grid, Group, NumberInput, Select, Text } from '@mantine/core';
 import { useForm } from '@mantine/form';
 import { useScrollIntoView } from '@mantine/hooks';
 import { estimateRequireScore } from '../utils/calculateScore';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import ShowsRankBox from './ShowsRankBox';
 import { IconCalculator, IconMicrophone, IconShoe, IconWorldCog, IconZoomReset } from '@tabler/icons-react';
 import DataBar from './DataBar';
@@ -17,6 +17,8 @@ interface FormData {
     vi: number
     ranking: "1" | "2" | "3" | "4" | "5" | "6"
 }
+
+const LSKEY = '3d-form'
 
 function CalculateForm({ CURRENT_MAX = 1500 }: CalculateFormProps) {
 
@@ -33,6 +35,7 @@ function CalculateForm({ CURRENT_MAX = 1500 }: CalculateFormProps) {
     const [scoreToBPlus, setScoreToBPlus] = useState<number>(-1);
 
     const calForm = useForm<FormData>({
+        mode: 'uncontrolled',
         initialValues: {
             vo: 1000,
             da: 1000,
@@ -45,7 +48,21 @@ function CalculateForm({ CURRENT_MAX = 1500 }: CalculateFormProps) {
             vi: (value) => (value >= 1 && value <= 1500 ? null : 'Invalid vi'),
             ranking: (value) => (!!value ? null : 'Invalid ranking number'),
         },
+        onValuesChange: (values) => {
+            window.localStorage.setItem(LSKEY, JSON.stringify(values));
+        },
     });
+
+    useEffect(() => {
+        const storedValue = window.localStorage.getItem(LSKEY);
+        if (storedValue) {
+            try {
+                calForm.setValues(JSON.parse(window.localStorage.getItem(LSKEY)!));
+            } catch (e) {
+                console.log('Failed to parse stored value');
+            }
+        }
+    }, []);
 
     function calFinalRequireScore(values: FormData) {
         setScoreToA(estimateRequireScore(values.vo, values.da, values.vi, "A", +values.ranking))
@@ -71,7 +88,7 @@ function CalculateForm({ CURRENT_MAX = 1500 }: CalculateFormProps) {
     return (
         <>
             {/* <ScoreThreeSizeAreaChar />   */}
-            
+
             {scoreToAPlus !== -1 && (
                 <>
                     <Grid grow ref={targetRef}>
