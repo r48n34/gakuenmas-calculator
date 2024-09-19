@@ -1,4 +1,4 @@
-import { Box, Button, Grid, Group, NumberInput, Select, Text } from '@mantine/core';
+import { ActionIcon, Box, Button, Grid, Group, NumberInput, Select, Text } from '@mantine/core';
 import { useForm } from '@mantine/form';
 import { useScrollIntoView } from '@mantine/hooks';
 import { estimateRequireScore } from '../utils/calculateScore';
@@ -148,9 +148,9 @@ function CalculateForm({ CURRENT_MAX = 1500 }: CalculateFormProps) {
 
                     <Group mt="md" justify="center">
 
-                        <Button onClick={() => subValueToForm("vo", 100)} variant="default" mt={52}>
-                            -100
-                        </Button>
+                        <ActionIcon onClick={() => subValueToForm("vo", 100)} variant="default" mt={52} size="lg">
+                            👇
+                        </ActionIcon>
 
                         <NumberInput
                             mt={8}
@@ -167,20 +167,20 @@ function CalculateForm({ CURRENT_MAX = 1500 }: CalculateFormProps) {
                             {...calForm.getInputProps('vo')}
                         />
 
-                        <Button onClick={() => addValueToForm("vo", 100)} variant="default" mt={52}>
-                            +100
-                        </Button>
-                        <Button onClick={() => addValueToForm("vo", 1000)} variant="default" mt={52}>
-                            +1000
-                        </Button>
+                        <ActionIcon onClick={() => addValueToForm("vo", 100)} variant="default" mt={52} size="lg">
+                            👆
+                        </ActionIcon>
+                        {/* <ActionIcon onClick={() => addValueToForm("vo", 1000)} variant="default" mt={52}>
+                            👆👆
+                        </ActionIcon> */}
 
                     </Group>
 
                     <Group mt="md" justify="center">
 
-                        <Button onClick={() => subValueToForm("da", 100)} variant="default" mt={52}>
-                            -100
-                        </Button>
+                        <ActionIcon onClick={() => subValueToForm("da", 100)} variant="default" mt={52} size="lg">
+                            👇
+                        </ActionIcon>
 
                         <NumberInput
                             mt={8}
@@ -196,19 +196,19 @@ function CalculateForm({ CURRENT_MAX = 1500 }: CalculateFormProps) {
                             stepHoldInterval={(t) => Math.max(1000 / t ** 2, 25)}
                             {...calForm.getInputProps('da')}
                         />
-                        <Button onClick={() => addValueToForm('da', 100)} variant="default" mt={52}>
-                            +100
-                        </Button>
-                        <Button onClick={() => addValueToForm('da', 1000)} variant="default" mt={52}>
-                            +1000
-                        </Button>
+                        <ActionIcon onClick={() => addValueToForm('da', 100)} variant="default" mt={52} size="lg">
+                            👆
+                        </ActionIcon>
+                        {/* <ActionIcon onClick={() => addValueToForm('da', 1000)} variant="default" mt={52}>
+                            👆👆
+                        </ActionIcon> */}
                     </Group>
 
                     <Group mt="md" justify="center">
 
-                        <Button onClick={() => subValueToForm("vi", 100)} variant="default" mt={52}>
-                            -100
-                        </Button>
+                        <ActionIcon onClick={() => subValueToForm("vi", 100)} variant="default" mt={52} size="lg">
+                            👇
+                        </ActionIcon>
 
                         <NumberInput
                             mt={8}
@@ -224,15 +224,15 @@ function CalculateForm({ CURRENT_MAX = 1500 }: CalculateFormProps) {
                             stepHoldInterval={(t) => Math.max(1000 / t ** 2, 25)}
                             {...calForm.getInputProps('vi')}
                         />
-                        <Button onClick={() => addValueToForm('vi', 100)} variant="default" mt={52}>
-                            +100
-                        </Button>
-                        <Button onClick={() => addValueToForm('vi', 1000)} variant="default" mt={52}>
-                            +1000
-                        </Button>
+                        <ActionIcon onClick={() => addValueToForm('vi', 100)} variant="default" mt={52} size="lg">
+                            👆
+                        </ActionIcon>
+                        {/* <ActionIcon onClick={() => addValueToForm('vi', 1000)} variant="default" mt={52}>
+                            👆👆
+                        </ActionIcon> */}
                     </Group>
 
-                    <Group justify="center" mt={24}>
+                    <Group justify="center" mt={32}>
                         <Button variant='light' leftSection={<IconZoomReset size={15} />} onClick={calForm.reset} color="green">
                             Reset
                         </Button>
