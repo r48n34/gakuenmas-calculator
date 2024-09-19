@@ -20,7 +20,7 @@ function HomePage(){
             />   
         </Group>
 
-        <Container>
+        <Container fluid>
             <Text ta="center" fw={300} fz={46}>
                <IconScoreboard size={32}/> 学園アイドルマスター Calculator
             </Text>

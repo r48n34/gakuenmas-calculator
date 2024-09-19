@@ -1,4 +1,4 @@
-import { Button, Grid, Group, NumberInput, Select, Text } from '@mantine/core';
+import { Box, Button, Grid, Group, NumberInput, Select, Text } from '@mantine/core';
 import { useForm } from '@mantine/form';
 import { useScrollIntoView } from '@mantine/hooks';
 import { estimateRequireScore } from '../utils/calculateScore';
@@ -85,8 +85,12 @@ function CalculateForm({ CURRENT_MAX = 1500 }: CalculateFormProps) {
         calForm.setFieldValue(field, Math.min(CURRENT_MAX, calForm.getValues()[field] + addedVal))
     }
 
+    function subValueToForm(field: "vo" | "da" | "vi", addedVal: number) {
+        calForm.setFieldValue(field, Math.max(0, calForm.getValues()[field] - addedVal))
+    }
+
     return (
-        <>
+        <Box>
             {/* <ScoreThreeSizeAreaChar />   */}
 
             {scoreToAPlus !== -1 && (
@@ -127,7 +131,6 @@ function CalculateForm({ CURRENT_MAX = 1500 }: CalculateFormProps) {
 
             <Group justify="center" mt={18}>
                 <form onSubmit={calForm.onSubmit((values) => calFinalRequireScore(values))}>
-
                     <Select
                         label="Final ranking"
                         description="No need to modify in general cases"
@@ -144,6 +147,10 @@ function CalculateForm({ CURRENT_MAX = 1500 }: CalculateFormProps) {
                     />
 
                     <Group mt="md" justify="center">
+
+                        <Button onClick={() => subValueToForm("vo", 100)} variant="default" mt={52}>
+                            -100
+                        </Button>
 
                         <NumberInput
                             mt={8}
@@ -163,10 +170,18 @@ function CalculateForm({ CURRENT_MAX = 1500 }: CalculateFormProps) {
                         <Button onClick={() => addValueToForm("vo", 100)} variant="default" mt={52}>
                             +100
                         </Button>
+                        <Button onClick={() => addValueToForm("vo", 1000)} variant="default" mt={52}>
+                            +1000
+                        </Button>
 
                     </Group>
 
                     <Group mt="md" justify="center">
+
+                        <Button onClick={() => subValueToForm("da", 100)} variant="default" mt={52}>
+                            -100
+                        </Button>
+
                         <NumberInput
                             mt={8}
                             label="Da (ダンス)"
@@ -184,9 +199,17 @@ function CalculateForm({ CURRENT_MAX = 1500 }: CalculateFormProps) {
                         <Button onClick={() => addValueToForm('da', 100)} variant="default" mt={52}>
                             +100
                         </Button>
+                        <Button onClick={() => addValueToForm('da', 1000)} variant="default" mt={52}>
+                            +1000
+                        </Button>
                     </Group>
 
                     <Group mt="md" justify="center">
+
+                        <Button onClick={() => subValueToForm("vi", 100)} variant="default" mt={52}>
+                            -100
+                        </Button>
+
                         <NumberInput
                             mt={8}
                             label="Vi (ビジュアル)"
@@ -204,6 +227,9 @@ function CalculateForm({ CURRENT_MAX = 1500 }: CalculateFormProps) {
                         <Button onClick={() => addValueToForm('vi', 100)} variant="default" mt={52}>
                             +100
                         </Button>
+                        <Button onClick={() => addValueToForm('vi', 1000)} variant="default" mt={52}>
+                            +1000
+                        </Button>
                     </Group>
 
                     <Group justify="center" mt={24}>
@@ -216,12 +242,12 @@ function CalculateForm({ CURRENT_MAX = 1500 }: CalculateFormProps) {
                     </Group>
 
                     <Text ta="center" mt={4} fw={300} fz={12} mb={12} c="dimmed">
-                        Last update algo: 30/05/2024
+                        Last update algo: 19/09/2024
                     </Text>
                 </form>
 
             </Group>
-        </>
+        </Box>
     )
 }
 
