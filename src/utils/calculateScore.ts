@@ -1,6 +1,6 @@
 import { FinalScoreKey, finalScoreMin } from "./staticData"
 
-// Algo in 30/05/2024, may change in the future
+// Algo in 20/09/2024, may change in the future
 export function estimateRequireScore(
     vo: number, da: number, vi: number,
     requireRank: string, ranking: number
@@ -20,7 +20,7 @@ export function estimateRequireScore(
     return 0
 }
 
-// Algo in 30/05/2024, may change in the future
+// Algo in 20/09/2024, may change in the future
 export function estimateInverseScore(vo: number, da: number, vi: number, ranking: number, finalScore: number): number{
 
     const resultPt = finalScore - rankingScore(ranking) - calculateThreeSum(vo - 30, da - 30, vi - 30, ranking === 1);

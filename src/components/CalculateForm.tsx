@@ -29,6 +29,7 @@ function CalculateForm({ CURRENT_MAX = 1800 }: CalculateFormProps) {
 
     const [currentThreeData, setCurrentThreeData] = useState<[number, number, number]>([-1, -1, -1]);
 
+    const [scoreToSPlus, setScoreToSPlus] = useState<number>(-1);
     const [scoreToS, setScoreToS] = useState<number>(-1);
     const [scoreToAPlus, setScoreToAPlus] = useState<number>(-1);
     const [scoreToA, setScoreToA] = useState<number>(-1);
@@ -37,9 +38,9 @@ function CalculateForm({ CURRENT_MAX = 1800 }: CalculateFormProps) {
     const calForm = useForm<FormData>({
         mode: 'uncontrolled',
         initialValues: {
-            vo: 1000,
-            da: 1000,
-            vi: 1000,
+            vo: 900,
+            da: 900,
+            vi: 900,
             ranking: "1"
         },
         validate: {
@@ -65,9 +66,10 @@ function CalculateForm({ CURRENT_MAX = 1800 }: CalculateFormProps) {
     }, []);
 
     function calFinalRequireScore(values: FormData) {
+        setScoreToSPlus(estimateRequireScore(values.vo, values.da, values.vi, "S+", +values.ranking))
+        setScoreToS(estimateRequireScore(values.vo, values.da, values.vi, "S", +values.ranking))
         setScoreToA(estimateRequireScore(values.vo, values.da, values.vi, "A", +values.ranking))
         setScoreToAPlus(estimateRequireScore(values.vo, values.da, values.vi, "A+", +values.ranking))
-        setScoreToS(estimateRequireScore(values.vo, values.da, values.vi, "S", +values.ranking))
         setScoreToBPlus(estimateRequireScore(values.vo, values.da, values.vi, "B+", +values.ranking))
 
         setCurrentThreeData([
@@ -91,8 +93,6 @@ function CalculateForm({ CURRENT_MAX = 1800 }: CalculateFormProps) {
 
     return (
         <Box>
-            {/* <ScoreThreeSizeAreaChar />   */}
-
             {scoreToAPlus !== -1 && (
                 <>
                     <Grid grow ref={targetRef}>
@@ -112,17 +112,21 @@ function CalculateForm({ CURRENT_MAX = 1800 }: CalculateFormProps) {
                             <ShowsRankBox title={"S"} score={scoreToS} textColor={"gold"} />
                         </Grid.Col>
 
-                        <Grid.Col span={{ base: 12, sm: 6, md: 6, lg: 2 }}>
+                        <Grid.Col span={{ base: 6, sm: 6, md: 6, lg: 2 }}>
+                            <ShowsRankBox title={"S+"} score={scoreToSPlus} textColor={"gold"} />
+                        </Grid.Col>
+
+                        <Grid.Col span={{ base: 12, sm: 6, md: 6, lg: 12 }}>
                             <DataBar vo={currentThreeData[0]} da={currentThreeData[1]} vi={currentThreeData[2]} />
                         </Grid.Col>
                     </Grid>
 
-                    <Text ta="left" c="dimmed" mt={6} fw={300} fz={14}>
+                    <Text ta="center" c="dimmed" mt={12} fw={300} fz={14}>
                         Total Sum: {currentThreeData.reduce((a, b) => a + b, 0)} {calForm.values.ranking === "1" ? ` added 1st Bonus` : ""}
                     </Text>
 
                     {calForm.values.ranking === "1" && (
-                        <Text ta="left" c="dimmed" mt={2} fw={300} fz={14}>
+                        <Text ta="center" c="dimmed" mt={2} fw={300} fz={14}>
                             (90 bonus is added to final calculations for 1st) (Stats that larger than 1800 will not be adding 30)
                         </Text>
                     )}
@@ -170,9 +174,6 @@ function CalculateForm({ CURRENT_MAX = 1800 }: CalculateFormProps) {
                         <ActionIcon onClick={() => addValueToForm("vo", 100)} variant="default" mt={52} size="lg">
                             👆
                         </ActionIcon>
-                        {/* <ActionIcon onClick={() => addValueToForm("vo", 1000)} variant="default" mt={52}>
-                            👆👆
-                        </ActionIcon> */}
 
                     </Group>
 
@@ -199,9 +200,6 @@ function CalculateForm({ CURRENT_MAX = 1800 }: CalculateFormProps) {
                         <ActionIcon onClick={() => addValueToForm('da', 100)} variant="default" mt={52} size="lg">
                             👆
                         </ActionIcon>
-                        {/* <ActionIcon onClick={() => addValueToForm('da', 1000)} variant="default" mt={52}>
-                            👆👆
-                        </ActionIcon> */}
                     </Group>
 
                     <Group mt="md" justify="center">
@@ -227,22 +225,27 @@ function CalculateForm({ CURRENT_MAX = 1800 }: CalculateFormProps) {
                         <ActionIcon onClick={() => addValueToForm('vi', 100)} variant="default" mt={52} size="lg">
                             👆
                         </ActionIcon>
-                        {/* <ActionIcon onClick={() => addValueToForm('vi', 1000)} variant="default" mt={52}>
-                            👆👆
-                        </ActionIcon> */}
                     </Group>
 
                     <Group justify="center" mt={32}>
-                        <Button variant='light' leftSection={<IconZoomReset size={15} />} onClick={calForm.reset} color="green">
+                        <Button
+                            variant='light'
+                            leftSection={<IconZoomReset size={15} />}
+                            onClick={() => {
+                                calForm.reset();
+                            }}
+                            color="green"
+                        >
                             Reset
                         </Button>
+
                         <Button type="submit" variant='light' leftSection={<IconCalculator size={15} />}>
                             Calculate score
                         </Button>
                     </Group>
 
                     <Text ta="center" mt={4} fw={300} fz={12} mb={12} c="dimmed">
-                        Last update algo: 19/09/2024
+                        Last update algo: 19/09/2024 ( Max 1800 )
                     </Text>
                 </form>
 

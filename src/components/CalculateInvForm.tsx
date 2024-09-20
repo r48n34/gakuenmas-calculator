@@ -158,7 +158,7 @@ function CalculateInvForm({ CURRENT_MAX = 1800 }: CalculateInvFormProps) {
                     </Group>
 
                     <Text ta="center" mt={4} fw={300} fz={12} mb={12} c="dimmed">
-                        Last update algo: 30/05/2024
+                        Last update algo: 20/09/2024
                     </Text>
                 </form>
 

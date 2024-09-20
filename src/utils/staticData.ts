@@ -1,4 +1,5 @@
 export const finalScoreMin = {
+    "S+": 14500,
     "S": 13000,
     "A+": 11500,
     "A": 10000,
