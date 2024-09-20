@@ -7,7 +7,7 @@ export default defineConfig({
     plugins: [
         react(),
         VitePWA({
-            registerType: 'autoUpdate',
+            registerType: 'prompt',
             includeAssets: ['logo.ico', 'vite.svg'],
             manifest: {
                 name: '学園アイドルマスター Calculator',
