@@ -99,31 +99,31 @@ function CalculateForm({ CURRENT_MAX = 1800 }: CalculateFormProps) {
             {scoreToAPlus !== -1 && (
                 <>
                     <Grid grow ref={targetRef}>
-                        <Grid.Col span={{ base: 12, sm: 6, md: 6, lg: 2 }}>
+                        <Grid.Col span={{ sm: 6, md: 6, lg: 2 }}>
                             <ShowsRankBox title={"B+"} score={scoreToBPlus} textColor={"gray"} />
                         </Grid.Col>
 
-                        <Grid.Col span={{ base: 6, sm: 6, md: 6, lg: 2 }}>
+                        <Grid.Col span={{ sm: 6, md: 6, lg: 2 }}>
                             <ShowsRankBox title={"A"} score={scoreToA} textColor={"pink"} />
                         </Grid.Col>
 
-                        <Grid.Col span={{ base: 6, sm: 6, md: 6, lg: 2 }}>
+                        <Grid.Col span={{ sm: 6, md: 6, lg: 2 }}>
                             <ShowsRankBox title={"A+"} score={scoreToAPlus} textColor={"pink"} />
                         </Grid.Col>
 
-                        <Grid.Col span={{ base: 6, sm: 6, md: 6, lg: 2 }}>
+                        <Grid.Col span={{ sm: 6, md: 6, lg: 2 }}>
                             <ShowsRankBox title={"S"} score={scoreToS} textColor={"gold"} />
                         </Grid.Col>
 
-                        <Grid.Col span={{ base: 6, sm: 6, md: 6, lg: 2 }}>
+                        <Grid.Col span={{sm: 6, md: 6, lg: 2 }}>
                             <ShowsRankBox title={"S+"} score={scoreToSPlus} textColor={"gold"} />
                         </Grid.Col>
 
-                        <Grid.Col span={{ base: 6, sm: 6, md: 6, lg: 2 }}>
+                        <Grid.Col span={{ sm: 6, md: 6, lg: 2 }}>
                             <ShowsRankBox title={"SS"} score={scoreToSS} textColor={"blue"} />
                         </Grid.Col>
 
-                        <Grid.Col span={{ base: 12, sm: 6, md: 6, lg: 12 }}>
+                        <Grid.Col span={{ sm: 12, md: 6, lg: 12 }}>
                             <DataBar vo={currentThreeData[0]} da={currentThreeData[1]} vi={currentThreeData[2]} />
                         </Grid.Col>
                     </Grid>

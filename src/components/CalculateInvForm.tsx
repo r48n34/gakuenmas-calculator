@@ -1,4 +1,4 @@
-import { Button, Group, NumberInput, Text } from '@mantine/core';
+import { ActionIcon, Button, Group, NumberInput, Text } from '@mantine/core';
 import { useForm } from '@mantine/form';
 import { estimateInverseScore } from '../utils/calculateScore';
 import { useState } from 'react';
@@ -66,7 +66,7 @@ function CalculateInvForm({ CURRENT_MAX = 1800 }: CalculateInvFormProps) {
             <Group justify="center" mt={18}>
                 <form onSubmit={calForm.onSubmit((values) => calFinalRequireScore(values))}>
 
-                    <Group mt="md" justify="left">
+                    <Group mt="md" >
                         <NumberInput
                             mt={8}
                             label="Final pt"
@@ -100,9 +100,9 @@ function CalculateInvForm({ CURRENT_MAX = 1800 }: CalculateInvFormProps) {
                             {...calForm.getInputProps('vo')}
                         />
 
-                        <Button onClick={() => addValueToForm("vo", 100)} variant="default" mt={52}>
-                            +100
-                        </Button>
+                        <ActionIcon onClick={() => addValueToForm('vo', 100)} variant="default" mt={52} size="lg">
+                            👆
+                        </ActionIcon>
 
                     </Group>
 
@@ -121,9 +121,9 @@ function CalculateInvForm({ CURRENT_MAX = 1800 }: CalculateInvFormProps) {
                             stepHoldInterval={(t) => Math.max(1000 / t ** 2, 25)}
                             {...calForm.getInputProps('da')}
                         />
-                        <Button onClick={() => addValueToForm('da', 100)} variant="default" mt={52}>
-                            +100
-                        </Button>
+                        <ActionIcon onClick={() => addValueToForm('da', 100)} variant="default" mt={52} size="lg">
+                            👆
+                        </ActionIcon>
                     </Group>
 
                     <Group mt="md" justify="center">
@@ -141,9 +141,10 @@ function CalculateInvForm({ CURRENT_MAX = 1800 }: CalculateInvFormProps) {
                             stepHoldInterval={(t) => Math.max(1000 / t ** 2, 25)}
                             {...calForm.getInputProps('vi')}
                         />
-                        <Button onClick={() => addValueToForm('vi', 100)} variant="default" mt={52}>
-                            +100
-                        </Button>
+
+                        <ActionIcon onClick={() => addValueToForm('vi', 100)} variant="default" mt={52} size="lg">
+                            👆
+                        </ActionIcon>
                     </Group>
 
 

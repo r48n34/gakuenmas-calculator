@@ -7,13 +7,18 @@ type ShowsRankBoxProps = {
 }
 
 function ShowsRankBox({ title, score, textColor = "gold" }: ShowsRankBoxProps){
+
+    if(score === 0){
+        return <></>
+    }
+
     return (
         <Card shadow="sm" padding="lg" radius="md" withBorder>
-        <Text ta="center" fz={34} c={textColor}>
+        <Text ta="center" fz={34} c={textColor} fw={600}>
             { title }
         </Text>
         <Text ta="center" fz={36} fw={600}>
-            {score  === 0 ? "N/A" : score}
+            {score === 0 ? "N/A" : score}
         </Text>
         </Card>
     )
