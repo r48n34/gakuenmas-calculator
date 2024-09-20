@@ -69,7 +69,7 @@ function rankingScore(rank: number): number {
 // https://ngabbs.com/read.php?tid=40230899
 function finalScoreCal(score: number): number{
 
-    const finalPt = score <= 5000 // (0 <  x ≤ 5000)
+    const finalPt = score <= 5000 // (0 < x ≤ 5000)
         ? 0.3 * score
         : score <= 10000          // (5000 < x ≤ 10000)
         ? 0.15 * score + 750
@@ -81,7 +81,7 @@ function finalScoreCal(score: number): number{
         ? 0.02 * score + 2850
         : score <= 50000          // (40000 < x ≤ 50000)
         ? 0.01 * score + 3250
-        : 0
+        : 0.01 * score + 3250     // ( x > 50000 ) Seems like the final bound will be like this (Estimated) 
 
     return Math.floor(finalPt)
 }
