@@ -29,6 +29,7 @@ function CalculateForm({ CURRENT_MAX = 1800 }: CalculateFormProps) {
 
     const [currentThreeData, setCurrentThreeData] = useState<[number, number, number]>([-1, -1, -1]);
 
+    const [scoreToSS, setScoreToSS] = useState<number>(-1);
     const [scoreToSPlus, setScoreToSPlus] = useState<number>(-1);
     const [scoreToS, setScoreToS] = useState<number>(-1);
     const [scoreToAPlus, setScoreToAPlus] = useState<number>(-1);
@@ -66,6 +67,8 @@ function CalculateForm({ CURRENT_MAX = 1800 }: CalculateFormProps) {
     }, []);
 
     function calFinalRequireScore(values: FormData) {
+        setScoreToSS(estimateRequireScore(values.vo, values.da, values.vi, "SS", +values.ranking))
+
         setScoreToSPlus(estimateRequireScore(values.vo, values.da, values.vi, "S+", +values.ranking))
         setScoreToS(estimateRequireScore(values.vo, values.da, values.vi, "S", +values.ranking))
         setScoreToA(estimateRequireScore(values.vo, values.da, values.vi, "A", +values.ranking))
@@ -114,6 +117,10 @@ function CalculateForm({ CURRENT_MAX = 1800 }: CalculateFormProps) {
 
                         <Grid.Col span={{ base: 6, sm: 6, md: 6, lg: 2 }}>
                             <ShowsRankBox title={"S+"} score={scoreToSPlus} textColor={"gold"} />
+                        </Grid.Col>
+
+                        <Grid.Col span={{ base: 6, sm: 6, md: 6, lg: 2 }}>
+                            <ShowsRankBox title={"SS"} score={scoreToSS} textColor={"blue"} />
                         </Grid.Col>
 
                         <Grid.Col span={{ base: 12, sm: 6, md: 6, lg: 12 }}>

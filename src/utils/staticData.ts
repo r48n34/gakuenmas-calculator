@@ -1,4 +1,5 @@
 export const finalScoreMin = {
+    "SS" : 16000, // Not Proof, just a estimated value regarding A+, S and S+
     "S+": 14500,
     "S": 13000,
     "A+": 11500,
