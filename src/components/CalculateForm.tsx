@@ -20,7 +20,7 @@ interface FormData {
 
 const LSKEY = '3d-form'
 
-function CalculateForm({ CURRENT_MAX = 1500 }: CalculateFormProps) {
+function CalculateForm({ CURRENT_MAX = 1800 }: CalculateFormProps) {
 
     const { scrollIntoView, targetRef } = useScrollIntoView<HTMLDivElement>({
         offset: 60,
@@ -43,9 +43,9 @@ function CalculateForm({ CURRENT_MAX = 1500 }: CalculateFormProps) {
             ranking: "1"
         },
         validate: {
-            vo: (value) => (value >= 1 && value <= 1500 ? null : 'Invalid vo'),
-            da: (value) => (value >= 1 && value <= 1500 ? null : 'Invalid da'),
-            vi: (value) => (value >= 1 && value <= 1500 ? null : 'Invalid vi'),
+            vo: (value) => (value >= 1 && value <= 1800 ? null : 'Invalid vo'),
+            da: (value) => (value >= 1 && value <= 1800 ? null : 'Invalid da'),
+            vi: (value) => (value >= 1 && value <= 1800 ? null : 'Invalid vi'),
             ranking: (value) => (!!value ? null : 'Invalid ranking number'),
         },
         onValuesChange: (values) => {
@@ -123,7 +123,7 @@ function CalculateForm({ CURRENT_MAX = 1500 }: CalculateFormProps) {
 
                     {calForm.values.ranking === "1" && (
                         <Text ta="left" c="dimmed" mt={2} fw={300} fz={14}>
-                            (90 bonus is added to final calculations for 1st) (Stats that larger than 1500 will not be adding 30)
+                            (90 bonus is added to final calculations for 1st) (Stats that larger than 1800 will not be adding 30)
                         </Text>
                     )}
                 </>
@@ -161,7 +161,7 @@ function CalculateForm({ CURRENT_MAX = 1500 }: CalculateFormProps) {
                             allowDecimal={false}
                             key={calForm.key('vo')}
                             min={1}
-                            max={1500}
+                            max={1800}
                             stepHoldDelay={500}
                             stepHoldInterval={(t) => Math.max(1000 / t ** 2, 25)}
                             {...calForm.getInputProps('vo')}
@@ -191,7 +191,7 @@ function CalculateForm({ CURRENT_MAX = 1500 }: CalculateFormProps) {
                             allowDecimal={false}
                             key={calForm.key('da')}
                             min={1}
-                            max={1500}
+                            max={1800}
                             stepHoldDelay={500}
                             stepHoldInterval={(t) => Math.max(1000 / t ** 2, 25)}
                             {...calForm.getInputProps('da')}
@@ -219,7 +219,7 @@ function CalculateForm({ CURRENT_MAX = 1500 }: CalculateFormProps) {
                             allowDecimal={false}
                             key={calForm.key('vi')}
                             min={1}
-                            max={1500}
+                            max={1800}
                             stepHoldDelay={500}
                             stepHoldInterval={(t) => Math.max(1000 / t ** 2, 25)}
                             {...calForm.getInputProps('vi')}

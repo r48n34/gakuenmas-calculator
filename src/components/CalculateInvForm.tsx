@@ -15,7 +15,7 @@ interface FormData {
     pt: number
 }
 
-function CalculateInvForm({ CURRENT_MAX = 1500 }: CalculateInvFormProps) {
+function CalculateInvForm({ CURRENT_MAX = 1800 }: CalculateInvFormProps) {
 
     const [finalScore, setFinalScore] = useState<number>(-1);
 
@@ -27,9 +27,9 @@ function CalculateInvForm({ CURRENT_MAX = 1500 }: CalculateInvFormProps) {
             pt: 10000
         },
         validate: {
-            vo: (value) => (value >= 1 && value <= 1500 ? null : 'Invalid vo'),
-            da: (value) => (value >= 1 && value <= 1500 ? null : 'Invalid da'),
-            vi: (value) => (value >= 1 && value <= 1500 ? null : 'Invalid vi'),
+            vo: (value) => (value >= 1 && value <= 1800 ? null : 'Invalid vo'),
+            da: (value) => (value >= 1 && value <= 1800 ? null : 'Invalid da'),
+            vi: (value) => (value >= 1 && value <= 1800 ? null : 'Invalid vi'),
             pt: (value) => (value >= 1 ? null : 'Invalid ranking number'),
         },
     });
@@ -94,7 +94,7 @@ function CalculateInvForm({ CURRENT_MAX = 1500 }: CalculateInvFormProps) {
                             allowDecimal={false}
                             key={calForm.key('vo')}
                             min={1}
-                            max={1500}
+                            max={1800}
                             stepHoldDelay={500}
                             stepHoldInterval={(t) => Math.max(1000 / t ** 2, 25)}
                             {...calForm.getInputProps('vo')}
@@ -116,7 +116,7 @@ function CalculateInvForm({ CURRENT_MAX = 1500 }: CalculateInvFormProps) {
                             allowDecimal={false}
                             key={calForm.key('da')}
                             min={1}
-                            max={1500}
+                            max={1800}
                             stepHoldDelay={500}
                             stepHoldInterval={(t) => Math.max(1000 / t ** 2, 25)}
                             {...calForm.getInputProps('da')}
@@ -136,7 +136,7 @@ function CalculateInvForm({ CURRENT_MAX = 1500 }: CalculateInvFormProps) {
                             allowDecimal={false}
                             key={calForm.key('vi')}
                             min={1}
-                            max={1500}
+                            max={1800}
                             stepHoldDelay={500}
                             stepHoldInterval={(t) => Math.max(1000 / t ** 2, 25)}
                             {...calForm.getInputProps('vi')}

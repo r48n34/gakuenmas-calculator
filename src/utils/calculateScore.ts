@@ -36,7 +36,7 @@ export function estimateInverseScore(vo: number, da: number, vi: number, ranking
     return 0
 }
 
-function calculateThreeSum(vo: number, da: number, vi: number, isRankOne: boolean, CURRENT_MAX: number = 1500): number {
+function calculateThreeSum(vo: number, da: number, vi: number, isRankOne: boolean, CURRENT_MAX: number = 1800): number {
 
     if(isRankOne){
         return Math.floor( 2.3 * ( 
