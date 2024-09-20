@@ -8,7 +8,7 @@ export default defineConfig({
         react(),
         VitePWA({
             registerType: 'autoUpdate',
-            includeAssets: ['favicon.ico', 'vite.svg'],
+            includeAssets: ['logo.ico', 'vite.svg'],
             manifest: {
                 name: '学園アイドルマスター Calculator',
                 short_name: '学マス Cal',
@@ -16,9 +16,9 @@ export default defineConfig({
                 theme_color: '#1a1b1e',
                 icons: [
                     {
-                      src: 'vite.svg',
+                      src: 'logo.ico',
                       sizes: '192x192',
-                      type: 'image/svg'
+                      type: 'image/ico'
                     }
                 ]
             }
