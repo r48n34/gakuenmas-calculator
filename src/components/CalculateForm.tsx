@@ -18,6 +18,7 @@ interface FormData {
     ranking: "1" | "2" | "3" | "4" | "5" | "6"
 }
 
+// Local Storage Key
 const LSKEY = '3d-form'
 
 function CalculateForm({ CURRENT_MAX = 1800 }: CalculateFormProps) {
@@ -29,6 +30,7 @@ function CalculateForm({ CURRENT_MAX = 1800 }: CalculateFormProps) {
 
     const [currentThreeData, setCurrentThreeData] = useState<[number, number, number]>([-1, -1, -1]);
 
+    // Score use state for obtain target score card, may change to object state later 
     const [scoreToSS, setScoreToSS] = useState<number>(-1);
     const [scoreToSPlus, setScoreToSPlus] = useState<number>(-1);
     const [scoreToS, setScoreToS] = useState<number>(-1);
@@ -115,7 +117,7 @@ function CalculateForm({ CURRENT_MAX = 1800 }: CalculateFormProps) {
                             <ShowsRankBox title={"S"} score={scoreToS} textColor={"gold"} />
                         </Grid.Col>
 
-                        <Grid.Col span={{sm: 6, md: 6, lg: 2 }}>
+                        <Grid.Col span={{ sm: 6, md: 6, lg: 2 }}>
                             <ShowsRankBox title={"S+"} score={scoreToSPlus} textColor={"gold"} />
                         </Grid.Col>
 
@@ -159,8 +161,13 @@ function CalculateForm({ CURRENT_MAX = 1800 }: CalculateFormProps) {
 
                     <Group mt="md" justify="center">
 
-                        <ActionIcon onClick={() => subValueToForm("vo", 100)} variant="default" mt={52} size="lg">
-                            👇
+                        <ActionIcon
+                            onClick={() => subValueToForm("vo", 100)}
+                            variant="default"
+                            mt={52}
+                            size="lg"
+                        >
+                            -
                         </ActionIcon>
 
                         <NumberInput
@@ -178,16 +185,26 @@ function CalculateForm({ CURRENT_MAX = 1800 }: CalculateFormProps) {
                             {...calForm.getInputProps('vo')}
                         />
 
-                        <ActionIcon onClick={() => addValueToForm("vo", 100)} variant="default" mt={52} size="lg">
-                            👆
+                        <ActionIcon
+                            onClick={() => addValueToForm("vo", 100)}
+                            variant="default"
+                            mt={52}
+                            size="lg"
+                        >
+                            +
                         </ActionIcon>
 
                     </Group>
 
                     <Group mt="md" justify="center">
 
-                        <ActionIcon onClick={() => subValueToForm("da", 100)} variant="default" mt={52} size="lg">
-                            👇
+                        <ActionIcon
+                            onClick={() => subValueToForm("da", 100)}
+                            variant="default"
+                            mt={52}
+                            size="lg"
+                        >
+                            -
                         </ActionIcon>
 
                         <NumberInput
@@ -204,15 +221,25 @@ function CalculateForm({ CURRENT_MAX = 1800 }: CalculateFormProps) {
                             stepHoldInterval={(t) => Math.max(1000 / t ** 2, 25)}
                             {...calForm.getInputProps('da')}
                         />
-                        <ActionIcon onClick={() => addValueToForm('da', 100)} variant="default" mt={52} size="lg">
-                            👆
+                        <ActionIcon
+                            onClick={() => addValueToForm('da', 100)}
+                            variant="default"
+                            mt={52}
+                            size="lg"
+                        >
+                            +
                         </ActionIcon>
                     </Group>
 
                     <Group mt="md" justify="center">
 
-                        <ActionIcon onClick={() => subValueToForm("vi", 100)} variant="default" mt={52} size="lg">
-                            👇
+                        <ActionIcon
+                            onClick={() => subValueToForm("vi", 100)}
+                            variant="default"
+                            mt={52}
+                            size="lg"
+                        >
+                            -
                         </ActionIcon>
 
                         <NumberInput
@@ -229,8 +256,13 @@ function CalculateForm({ CURRENT_MAX = 1800 }: CalculateFormProps) {
                             stepHoldInterval={(t) => Math.max(1000 / t ** 2, 25)}
                             {...calForm.getInputProps('vi')}
                         />
-                        <ActionIcon onClick={() => addValueToForm('vi', 100)} variant="default" mt={52} size="lg">
-                            👆
+                        <ActionIcon
+                            onClick={() => addValueToForm('vi', 100)}
+                            variant="default"
+                            mt={52}
+                            size="lg"
+                        >
+                            +
                         </ActionIcon>
                     </Group>
 

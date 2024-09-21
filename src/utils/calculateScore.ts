@@ -2,14 +2,17 @@ import { FinalScoreKey, finalScoreMin } from "./staticData"
 
 // Algo in 20/09/2024, may change in the future
 export function estimateRequireScore(
-    vo: number, da: number, vi: number,
-    requireRank: string, ranking: number
-): number{
+    vo: number, 
+    da: number, 
+    vi: number,
+    requireRank: string, // Mapped to FinalScoreKey key
+    ranking: number // e.g. 1, 2, 3...
+): number {
     const scoreRequire = finalScoreMin[requireRank as FinalScoreKey] || finalScoreMin["A+"];
 
     const resultPt = scoreRequire - rankingScore(ranking) - calculateThreeSum(vo, da, vi, ranking === 1);
 
-    for(let sc = 0; sc < 165000; sc ++){
+    for(let sc = 0; sc < 185000; sc ++){
         const resultAduScore = finalScoreCal(sc);
 
         if(resultAduScore >= resultPt){
@@ -23,9 +26,11 @@ export function estimateRequireScore(
 // Algo in 20/09/2024, may change in the future
 export function estimateInverseScore(vo: number, da: number, vi: number, ranking: number, finalScore: number): number{
 
-    const resultPt = finalScore - rankingScore(ranking) - calculateThreeSum(vo - 30, da - 30, vi - 30, ranking === 1);
+    const resultPt = finalScore 
+        - rankingScore(ranking) 
+        - calculateThreeSum(vo - 30, da - 30, vi - 30, ranking === 1);
 
-    for(let sc = 0; sc < 165000; sc ++){
+    for(let sc = 0; sc < 185000; sc ++){
         const resultAduScore = finalScoreCal(sc);
 
         if(resultAduScore >= resultPt){
